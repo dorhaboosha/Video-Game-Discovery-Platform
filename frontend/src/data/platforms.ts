@@ -1,3 +1,11 @@
+/**
+ * Static parent platforms data.
+ *
+ * RAWG-style response shape: count, next, previous, and results array of parent
+ * platforms (id, name, slug, platforms). Each parent has child platforms with
+ * games_count, image_background, etc. Used as fallback or mock when the API is
+ * unavailable or for offline/static use.
+ */
 export default {
   "count": 14,
   "next": null,
