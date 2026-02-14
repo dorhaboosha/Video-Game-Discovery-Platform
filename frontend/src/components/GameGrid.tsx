@@ -1,3 +1,10 @@
+/**
+ * Game grid component.
+ *
+ * Renders the main games list with infinite scroll. Uses {@link useGames} for data;
+ * shows skeletons while loading, error text on failure, and {@link GameCard}s inside
+ * {@link GameCardContiner}. Responsive columns: 1 (sm) to 4 (xl).
+ */
 
 import { SimpleGrid, Spinner, Text } from '@chakra-ui/react';
 import useGames from '../hooks/useGames';
@@ -7,6 +14,7 @@ import GameCardContiner from './GameCardContiner';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+/** Infinite-scrolling grid of game cards with loading skeletons and error state. */
 const GameGrid = () => {
     
     const {data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useGames();
