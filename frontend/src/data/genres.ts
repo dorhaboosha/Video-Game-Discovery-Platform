@@ -1,3 +1,10 @@
+/**
+ * Static genres data.
+ *
+ * RAWG-style response shape: count, next, previous, and results array of genres
+ * (id, name, slug, games_count, image_background, games). Used as fallback or
+ * mock when the API is unavailable or for offline/static use.
+ */
 export default {
   "count": 19,
   "next": null,
