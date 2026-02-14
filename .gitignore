@@ -1,0 +1,25 @@
+# ===== Dependencies =====
+**/node_modules/
+
+# ===== Build outputs =====
+**/dist/
+**/build/
+**/.cache/
+
+# ===== Env files (never commit secrets) =====
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Allow env examples
+!**/.env.example
+
+# ===== Logs =====
+**/*.log
+**/logs/
+
+# ===== OS / Editor =====
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
