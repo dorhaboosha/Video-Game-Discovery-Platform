@@ -1,10 +1,13 @@
-# Video Game Discovery App 🎮
+# Video Game Discovery Platform 🎮
 
 A **React + TypeScript** web app for discovering video games — browse, search, filter, and sort games using the **RAWG Video Games Database API**.
 
-This repo includes:
+This repository is a fullstack monorepo:
 - **frontend/** (React + Vite)
-- **backend/** (Node + Express + TypeScript) — proxies RAWG so the API key stays server-side
+- **backend/** (Node + Express + TypeScript) — proxies RAWG so the API key stays server-side and serves the built frontend in production
+
+## Live Demo
+- https://video-game-discovery-platform.onrender.com
 
 ---
 
@@ -24,6 +27,7 @@ This repo includes:
 - TypeScript
 - Vite
 - React Query
+- React Router
 
 ### Backend
 - Node.js
@@ -46,30 +50,15 @@ The backend acts as a **proxy**:
 
 ### 1) Clone the repo
 ```bash
-git clone https://github.com/dorhaboosha/Video-Game-Discovery-App.git
-cd Video-Game-Discovery-App
+git clone https://github.com/dorhaboosha/Video-Game-Discovery-Platform.git
+cd Video-Game-Discovery-Platform
 ```
 
-### 2) Install dependencies
-
-#### Option A: One command (root scripts)
+### 2) Install dependencies (one command)
 From the **repo root**:
 ```bash
 npm install
 npm run install:all
-```
-
-#### Option B: Install manually
-Backend:
-```bash
-cd backend
-npm install
-```
-
-Frontend:
-```bash
-cd ../frontend
-npm install
 ```
 
 ### 3) Configure environment variables (backend)
@@ -83,32 +72,30 @@ You can use `backend/.env.example` as a template.
 
 Get an API key from RAWG: https://rawg.io/apidocs
 
-### 4) Start the app
-
-#### Option A: One command (runs backend + frontend together)
+### 4) Start the app (development)
 From the **repo root**:
 ```bash
 npm run dev
 ```
 
-#### Option B: Two terminals
-Terminal 1 (backend):
-```bash
-cd backend
-npm run dev
-```
-
-Terminal 2 (frontend):
-```bash
-cd frontend
-npm run dev
-```
-
 Open:
-- Frontend: http://localhost:5173  
+- Frontend (Vite): http://localhost:5173  
 - Backend health: http://localhost:5000/health  
 
 ✅ The frontend calls `/api/...` and Vite proxies it to the backend.
+
+---
+
+## Production-style run (single server, one port)
+This mimics the deployed setup (backend serves the built frontend):
+
+```bash
+npm run build:all
+npm run start:prod
+```
+
+Open:
+- http://localhost:5000
 
 ---
 
@@ -123,46 +110,22 @@ The backend exposes these endpoints (mirroring RAWG):
 
 ---
 
-## Root scripts (required for `npm run dev` at repo root)
-
-To make `npm run dev` start **both** frontend + backend, create a **root** `package.json` (at the repo root) like this:
-
-```json
-{
-  "name": "video-game-discovery-app",
-  "private": true,
-  "devDependencies": {
-    "concurrently": "^9.0.0"
-  },
-  "scripts": {
-    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
-    "install:all": "npm --prefix backend install && npm --prefix frontend install"
-  }
-}
-```
-
-Then run (from repo root):
-```bash
-npm install
-npm run dev
-```
-
----
-
-## Deployment Notes
-If you deploy **frontend only** (e.g., GitHub Pages), it won’t have the backend `/api` routes.
-
-Recommended deployment options:
-1) **Deploy frontend + backend together** (backend serves the built frontend) → same origin, no CORS needed.
-2) Deploy them separately and configure allowed origins + env vars.
-
----
-
-## Project Structure (high level)
+## Project Structure
 ```text
 frontend/        # React app (UI)
-backend/         # Express API proxy (RAWG key stored server-side)
+backend/         # Express API proxy + serves frontend/dist in production
 ```
+
+---
+
+## Deployment (Render)
+This project is deployed as a **single Render Web Service** (one domain):
+- The backend builds the frontend (`frontend/dist`) and serves it
+- The RAWG key is stored as an environment variable on Render (`RAWG_API_KEY`)
+
+Render build/start commands used:
+- Build: `npm install && npm run install:all && npm run build:all`
+- Start: `npm run start:prod`
 
 ---
 
