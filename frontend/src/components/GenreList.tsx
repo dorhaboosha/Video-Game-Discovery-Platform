@@ -1,9 +1,17 @@
+/**
+ * Genre list (sidebar) component.
+ *
+ * Fetches genres via {@link useGenres} and renders a "Genres" heading plus
+ * a list of genre buttons with cropped images. Selection is synced with
+ * {@link useGameQueryStore} (setGenreId). Shows Spinner while loading, null on error.
+ */
 
 import { Button, Heading, HStack, Image, List, ListItem, Spinner, Text } from '@chakra-ui/react';
 import useGenres from '../hooks/useGenres'
 import getCroppedImageUrl from '../services/image-url';
 import useGameQueryStore from '../store';
 
+/** Sidebar list of genres; selecting one updates the game query filter. */
 const GenreList = () => {
 
     const { data, isLoading, error } = useGenres();
