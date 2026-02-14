@@ -1,3 +1,10 @@
+/**
+ * Game card component.
+ *
+ * Card for the game grid: cropped image, platform icons, Metacritic score,
+ * game name (link to detail page), and rating emoji. Uses Chakra Card and
+ * PlatformIconList, CriticScore, Emjoi.
+ */
 
 import Game from "../entities/Game";
 import { Card, CardBody, Heading, HStack, Image, Text } from '@chakra-ui/react';
@@ -7,10 +14,12 @@ import getCroppedImageUrl from '../services/image-url';
 import Emjoi from './Emjoi';
 import { Link } from 'react-router-dom';
 
+/** @param game - Game entity to display in the card. */
 interface Props {
     game: Game;
 }
 
+/** Single game card with image, platforms, score, name link, and rating emoji. */
 const GameCard = ({ game }: Props) => {
   return (
     <Card>
