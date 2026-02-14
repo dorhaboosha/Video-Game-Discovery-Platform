@@ -1,3 +1,10 @@
+/**
+ * useGames hook.
+ *
+ * Fetches a paginated list of games with infinite scroll. Filters (genre,
+ * platform, sort order, search) come from {@link useGameQueryStore}. Data
+ * is considered fresh for 24h. Used by {@link GameGrid}.
+ */
 
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ms from "ms";
@@ -7,6 +14,11 @@ import Game from "../entities/Game";
 
 const apiClient = new APIClient<Game>('/games');
 
+/**
+ * Fetches games list with infinite pagination; filters from game query store.
+ *
+ * @returns React Query infinite query result (data.pages, fetchNextPage, hasNextPage, etc.)
+ */
 const useGames = () => {
 
     const gameQuery = useGameQueryStore(s => s.gameQuery)
