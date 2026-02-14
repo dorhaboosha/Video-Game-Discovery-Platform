@@ -1,8 +1,16 @@
+/**
+ * Sort order dropdown component.
+ *
+ * Chakra Menu with options: Relevance, Date added, Name, Release date,
+ * Popularity, Average rating. Selection is synced with {@link useGameQueryStore}
+ * (setSortOrder). Button shows "Order by: [label]" or "Relevance" when none set.
+ */
 
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { BsChevronDown } from 'react-icons/bs'
 import useGameQueryStore from '../store';
 
+/** Dropdown to pick game list sort order; updates the game query store. */
 const SortSelector = () => {
 
     const sortOrders = [
