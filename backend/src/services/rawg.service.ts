@@ -7,6 +7,14 @@
 
 import { rawgClient } from "../lib/rawgClient";
 
+/** RAWG paginated list response shape. */
+export interface RawgPaginatedResponse<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
+}
+
 /**
  * RAWG service: makes HTTP calls to RAWG and returns the raw JSON data.
  * No Express req/res logic here.
@@ -18,8 +26,8 @@ export const rawgService = {
    * @param query - Query params (e.g. page, search, genres, platforms, ordering)
    * @returns RAWG games list response (results array + count, etc.)
    */
-  async getGames(query: Record<string, any>) {
-    const { data } = await rawgClient.get("/games", { params: query });
+  async getGames(query: Record<string, any>): Promise<RawgPaginatedResponse<unknown>> {
+    const { data } = await rawgClient.get<RawgPaginatedResponse<unknown>>("/games", { params: query });
     return data;
   },
 
@@ -29,8 +37,8 @@ export const rawgService = {
    * @param slug - Game slug (e.g. "grand-theft-auto-v")
    * @returns RAWG game details object
    */
-  async getGameBySlug(slug: string) {
-    const { data } = await rawgClient.get(`/games/${encodeURIComponent(slug)}`);
+  async getGameBySlug(slug: string): Promise<unknown> {
+    const { data } = await rawgClient.get<unknown>(`/games/${encodeURIComponent(slug)}`);
     return data;
   },
 
@@ -39,8 +47,8 @@ export const rawgService = {
    *
    * @returns RAWG genres list response
    */
-  async getGenres() {
-    const { data } = await rawgClient.get("/genres");
+  async getGenres(): Promise<RawgPaginatedResponse<unknown>> {
+    const { data } = await rawgClient.get<RawgPaginatedResponse<unknown>>("/genres");
     return data;
   },
 
@@ -49,8 +57,8 @@ export const rawgService = {
    *
    * @returns RAWG parent platforms list response
    */
-  async getParentPlatforms() {
-    const { data } = await rawgClient.get("/platforms/lists/parents");
+  async getParentPlatforms(): Promise<RawgPaginatedResponse<unknown>> {
+    const { data } = await rawgClient.get<RawgPaginatedResponse<unknown>>("/platforms/lists/parents");
     return data;
   },
 
@@ -60,8 +68,8 @@ export const rawgService = {
    * @param gameId - RAWG game id (numeric string)
    * @returns RAWG screenshots response
    */
-  async getScreenshots(gameId: string) {
-    const { data } = await rawgClient.get(`/games/${encodeURIComponent(gameId)}/screenshots`);
+  async getScreenshots(gameId: string): Promise<RawgPaginatedResponse<unknown>> {
+    const { data } = await rawgClient.get<RawgPaginatedResponse<unknown>>(`/games/${encodeURIComponent(gameId)}/screenshots`);
     return data;
   },
 
@@ -71,8 +79,8 @@ export const rawgService = {
    * @param gameId - RAWG game id (numeric string)
    * @returns RAWG movies response
    */
-  async getMovies(gameId: string) {
-    const { data } = await rawgClient.get(`/games/${encodeURIComponent(gameId)}/movies`);
+  async getMovies(gameId: string): Promise<RawgPaginatedResponse<unknown>> {
+    const { data } = await rawgClient.get<RawgPaginatedResponse<unknown>>(`/games/${encodeURIComponent(gameId)}/movies`);
     return data;
   },
 };

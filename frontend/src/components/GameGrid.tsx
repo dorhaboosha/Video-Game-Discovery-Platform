@@ -3,14 +3,14 @@
  *
  * Renders the main games list with infinite scroll. Uses {@link useGames} for data;
  * shows skeletons while loading, error text on failure, and {@link GameCard}s inside
- * {@link GameCardContiner}. Responsive columns: 1 (sm) to 4 (xl).
+ * {@link GameCardContainer}. Responsive columns: 1 (sm) to 4 (xl).
  */
 
 import { SimpleGrid, Spinner, Text } from '@chakra-ui/react';
 import useGames from '../hooks/useGames';
 import GameCard from './GameCard';
 import GameCardSkeleton from './GameCardSkeleton';
-import GameCardContiner from './GameCardContiner';
+import GameCardContainer from './GameCardContainer';
 import React from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -31,15 +31,15 @@ const GameGrid = () => {
             next={() => fetchNextPage()} loader={<Spinner />}>
             <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4}} padding='10px' spacing={6}>
                 {isLoading && skeletons.map((skeleton) => 
-                <GameCardContiner key={skeleton}>
+                <GameCardContainer key={skeleton}>
                     <GameCardSkeleton />
-                </GameCardContiner>)}
+                </GameCardContainer>)}
                 {data?.pages.map((page, index) => (
                     <React.Fragment key={index}>
                         {page.results.map(game =>
-                            <GameCardContiner key={game.id}>
+                            <GameCardContainer key={game.id}>
                                 <GameCard game={game} />
-                            </GameCardContiner>
+                            </GameCardContainer>
                         )}
                     </React.Fragment>
                 ))}

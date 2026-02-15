@@ -14,6 +14,18 @@ import { SiNintendo } from 'react-icons/si';
 import { BsGlobe } from 'react-icons/bs';
 import { IconType } from 'react-icons';
 
+const iconMap: { [key: string]: IconType } = {
+    pc: FaWindows,
+    playstation: FaPlaystation,
+    xbox: FaXbox,
+    nintendo: SiNintendo,
+    mac: FaApple,
+    linux: FaLinux,
+    android: FaAndroid,
+    ios: MdPhoneIphone,
+    web: BsGlobe
+};
+
 /** @param platforms - List of platforms to show icons for (slug used for mapping). */
 interface Props {
     platforms: Platform[];
@@ -21,19 +33,6 @@ interface Props {
 
 /** Horizontal list of platform icons by slug (pc, playstation, xbox, etc.). */
 const PlatformIconList = ({platforms}: Props) => {
-
-    const iconMap: { [key: string] : IconType } = {
-        pc: FaWindows,
-        playstation: FaPlaystation,
-        xbox: FaXbox,
-        nintendo: SiNintendo,
-        mac: FaApple,
-        linux: FaLinux,
-        android: FaAndroid,
-        ios: MdPhoneIphone,
-        web: BsGlobe
-    };
-
   return (
     <HStack marginY={"10px"}>
         {platforms.map((platform) => (

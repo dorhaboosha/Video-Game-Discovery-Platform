@@ -15,7 +15,7 @@ import Screenshot from "../entities/Screenshot";
  * @param gameId - RAWG game id
  * @returns React Query result with screenshots (data.results), loading, error
  */
-const useSecreenshots = (gameId: number) => {
+const useScreenshots = (gameId: number) => {
     
     const apiClient = new APIClient<Screenshot>(`games/${gameId}/screenshots`);
 
@@ -25,4 +25,4 @@ const useSecreenshots = (gameId: number) => {
     });
 };
 
-export default useSecreenshots;
+export default useScreenshots;

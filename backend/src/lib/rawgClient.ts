@@ -35,6 +35,9 @@ export const rawgClient = axios.create({
   timeout: 15_000,
 });
 
+// Fail fast if the API key is not configured
+getApiKey();
+
 /** Attach the API key to every request as a query param. */
 rawgClient.interceptors.request.use((config) => {
   config.params = {

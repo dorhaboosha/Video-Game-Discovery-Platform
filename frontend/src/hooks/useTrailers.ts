@@ -5,6 +5,7 @@
  * by {@link GameTrailer} on the game detail page.
  */
 
+import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import APIClient from "../services/api-client";
 import Trailer from "../entities/Trailer";
@@ -16,13 +17,15 @@ import Trailer from "../entities/Trailer";
  * @returns React Query result with trailers (data.results), loading, error
  */
 const useTrailers = (gameId: number) => {
-    
-    const apiClient = new APIClient<Trailer>(`/games/${gameId}/movies`);
-    
+    const apiClient = useMemo(
+        () => new APIClient<Trailer>(`/games/${gameId}/movies`),
+        [gameId]
+    );
+
     return useQuery({
         queryKey: ["trailers", gameId],
         queryFn: apiClient.getAll
-    })
+    });
 };
 
 export default useTrailers;

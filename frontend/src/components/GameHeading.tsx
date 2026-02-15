@@ -7,7 +7,7 @@
  */
 
 import { Heading } from '@chakra-ui/react'
-import usePlatform from '../hooks/usePlatfrom';
+import usePlatform from '../hooks/usePlatform';
 import useGenre from '../hooks/useGenre';
 import useGameQueryStore from '../store';
 

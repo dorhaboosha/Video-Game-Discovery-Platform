@@ -43,7 +43,7 @@ const GameDetailPage = () => {
         <GameTrailer gameId={game.id} />
         <GameScreenshots gameId={game.id} />
       </GridItem>
-    </ SimpleGrid>
+    </SimpleGrid>
   )
 }
 

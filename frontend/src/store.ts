@@ -28,7 +28,7 @@ interface GameQueryStore {
 /** Zustand hook for game list filters; subscribe and update from any component. */
 const useGameQueryStore = create<GameQueryStore>(set => ({
     gameQuery: {},
-    setSearchText: (searchText) => set(() => ({ gameQuery: { searchText } })),
+    setSearchText: (searchText) => set(store => ({ gameQuery: { ...store.gameQuery, searchText } })),
     setGenreId: (genreId) => set(store => ({ gameQuery: { ...store.gameQuery, genreId } })),
     setPlatformId: (platformId) => set(store => ({ gameQuery: { ...store.gameQuery, platformId } })),
     setSortOrder: (sortOrder) => set(store => ({ gameQuery: { ...store.gameQuery, sortOrder }}))

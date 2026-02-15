@@ -6,7 +6,7 @@
  * Responsive grid: 1 column (base), 2 columns (md+).
  */
 
-import useSecreenshots from '../hooks/useScreenshots';
+import useScreenshots from '../hooks/useScreenshots';
 import { Image, SimpleGrid } from '@chakra-ui/react';
 
 /** @param gameId - RAWG game id to load screenshots for. */
@@ -17,7 +17,7 @@ interface Props {
 /** Grid of screenshot images for a game; loading = null, error = thrown. */
 const GameScreenshots = ({ gameId } : Props) => {
     
-    const {data, isLoading, error} = useSecreenshots(gameId);
+    const {data, isLoading, error} = useScreenshots(gameId);
 
     if (isLoading) {
         return null;
@@ -29,7 +29,7 @@ const GameScreenshots = ({ gameId } : Props) => {
 
     return (
         <SimpleGrid columns={{ base: 1, md: 2}} spacing={2}>
-            {data?.results.map(file => <Image key={file.id} src={file.image} />)}
+            {data?.results?.map(file => <Image key={file.id} src={file.image} />)}
         </SimpleGrid>
     ); 
 }
