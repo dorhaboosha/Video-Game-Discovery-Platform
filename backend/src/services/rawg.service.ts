@@ -6,6 +6,13 @@
  */
 
 import { rawgClient } from "../lib/rawgClient";
+import type {
+  RawgGame,
+  RawgGenre,
+  RawgMovie,
+  RawgParentPlatform,
+  RawgScreenshot,
+} from "../types/rawg.types";
 
 /** RAWG paginated list response shape. */
 export interface RawgPaginatedResponse<T> {
@@ -13,6 +20,16 @@ export interface RawgPaginatedResponse<T> {
   next: string | null;
   previous: string | null;
   results: T[];
+}
+
+/** Throws a 400 Error if value is not a non-empty numeric string. */
+function assertNumericId(value: string, paramName: string): void {
+  const trimmed = value.trim();
+  if (trimmed.length === 0 || !/^\d+$/.test(trimmed)) {
+    const err = new Error(`Invalid ${paramName}: expected a numeric game id`) as Error & { status?: number };
+    err.status = 400;
+    throw err;
+  }
 }
 
 /**
@@ -26,8 +43,8 @@ export const rawgService = {
    * @param query - Query params (e.g. page, search, genres, platforms, ordering)
    * @returns RAWG games list response (results array + count, etc.)
    */
-  async getGames(query: Record<string, any>): Promise<RawgPaginatedResponse<unknown>> {
-    const { data } = await rawgClient.get<RawgPaginatedResponse<unknown>>("/games", { params: query });
+  async getGames(query: Record<string, any>): Promise<RawgPaginatedResponse<RawgGame>> {
+    const { data } = await rawgClient.get<RawgPaginatedResponse<RawgGame>>("/games", { params: query });
     return data;
   },
 
@@ -37,8 +54,8 @@ export const rawgService = {
    * @param slug - Game slug (e.g. "grand-theft-auto-v")
    * @returns RAWG game details object
    */
-  async getGameBySlug(slug: string): Promise<unknown> {
-    const { data } = await rawgClient.get<unknown>(`/games/${encodeURIComponent(slug)}`);
+  async getGameBySlug(slug: string): Promise<RawgGame> {
+    const { data } = await rawgClient.get<RawgGame>(`/games/${encodeURIComponent(slug)}`);
     return data;
   },
 
@@ -47,8 +64,8 @@ export const rawgService = {
    *
    * @returns RAWG genres list response
    */
-  async getGenres(): Promise<RawgPaginatedResponse<unknown>> {
-    const { data } = await rawgClient.get<RawgPaginatedResponse<unknown>>("/genres");
+  async getGenres(): Promise<RawgPaginatedResponse<RawgGenre>> {
+    const { data } = await rawgClient.get<RawgPaginatedResponse<RawgGenre>>("/genres");
     return data;
   },
 
@@ -57,30 +74,36 @@ export const rawgService = {
    *
    * @returns RAWG parent platforms list response
    */
-  async getParentPlatforms(): Promise<RawgPaginatedResponse<unknown>> {
-    const { data } = await rawgClient.get<RawgPaginatedResponse<unknown>>("/platforms/lists/parents");
+  async getParentPlatforms(): Promise<RawgPaginatedResponse<RawgParentPlatform>> {
+    const { data } = await rawgClient.get<RawgPaginatedResponse<RawgParentPlatform>>("/platforms/lists/parents");
     return data;
   },
 
   /**
    * Fetches screenshot images for a game by RAWG game id.
    *
-   * @param gameId - RAWG game id (numeric string)
+   * @param gameId - RAWG game id (numeric string); validated before request.
    * @returns RAWG screenshots response
    */
-  async getScreenshots(gameId: string): Promise<RawgPaginatedResponse<unknown>> {
-    const { data } = await rawgClient.get<RawgPaginatedResponse<unknown>>(`/games/${encodeURIComponent(gameId)}/screenshots`);
+  async getScreenshots(gameId: string): Promise<RawgPaginatedResponse<RawgScreenshot>> {
+    assertNumericId(gameId, "gameId");
+    const { data } = await rawgClient.get<RawgPaginatedResponse<RawgScreenshot>>(
+      `/games/${encodeURIComponent(gameId)}/screenshots`
+    );
     return data;
   },
 
   /**
    * Fetches trailer/movie clips for a game by RAWG game id.
    *
-   * @param gameId - RAWG game id (numeric string)
+   * @param gameId - RAWG game id (numeric string); validated before request.
    * @returns RAWG movies response
    */
-  async getMovies(gameId: string): Promise<RawgPaginatedResponse<unknown>> {
-    const { data } = await rawgClient.get<RawgPaginatedResponse<unknown>>(`/games/${encodeURIComponent(gameId)}/movies`);
+  async getMovies(gameId: string): Promise<RawgPaginatedResponse<RawgMovie>> {
+    assertNumericId(gameId, "gameId");
+    const { data } = await rawgClient.get<RawgPaginatedResponse<RawgMovie>>(
+      `/games/${encodeURIComponent(gameId)}/movies`
+    );
     return data;
   },
 };

@@ -16,7 +16,7 @@ interface Props {
 /** Wrapper with rounded corners and hover scale for game cards. */
 const GameCardContainer = ({ children }: Props) => {
   return (
-    <Box width="100%" borderRadius={10} overflow="hidden" _hover={{transform: 'scale(1.03)', transition: 'transform .15s ease-in'}}>
+    <Box width="100%" borderRadius={10} overflow="hidden" transition="transform .15s ease-in" _hover={{ transform: 'scale(1.03)' }}>
         {children}
     </Box>
   )

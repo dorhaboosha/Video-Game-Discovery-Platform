@@ -29,7 +29,7 @@ const GameDetailPage = () => {
   }
 
   if (error || !game) {
-    throw error;
+    throw error || new Error("Game not found");
   }
 
   return (

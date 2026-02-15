@@ -21,11 +21,23 @@ import { rawgService } from "../services/rawg.service";
  * @throws {Error} When the param is missing or not a string/string[]
  */
 function getSingleParam(value: unknown, name: string): string {
-  if (typeof value === "string") return value;
-  if (Array.isArray(value) && typeof value[0] === "string") return value[0];
-  const err = new Error(`Missing or invalid route param: ${name}`) as Error & { status?: number };
-  err.status = 400;
-  throw err;
+  const reject = (): never => {
+    const err = new Error(`Missing or invalid route param: ${name}`) as Error & { status?: number };
+    err.status = 400;
+    throw err;
+  };
+
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (trimmed.length === 0) reject();
+    return trimmed;
+  }
+  if (Array.isArray(value) && value.length > 0 && typeof value[0] === "string") {
+    const trimmed = value[0].trim();
+    if (trimmed.length === 0) reject();
+    return trimmed;
+  }
+  return reject();
 }
 
 /**
