@@ -1,3 +1,11 @@
+/**
+ * Home page.
+ *
+ * Main games list view: responsive grid with genre sidebar (lg+), heading,
+ * platform and sort selectors, and infinite-scrolling {@link GameGrid}.
+ * Uses {@link GenreList}, {@link GameHeading}, {@link PlatformSelector},
+ * {@link SortSelector}.
+ */
 
 import { Box, Flex, Grid, GridItem, Show } from '@chakra-ui/react';
 import GenreList from '../components/GenreList';
@@ -6,6 +14,7 @@ import PlatformSelector from '../components/PlatformSelector';
 import SortSelector from '../components/SortSelector';
 import GameGrid from '../components/GameGrid';
 
+/** Home layout: genre sidebar (lg+), filters, and game grid. */
 const HomePage = () => {
   return (
     <Grid 

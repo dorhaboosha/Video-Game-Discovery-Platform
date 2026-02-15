@@ -1,3 +1,11 @@
+/**
+ * Frontend entry point.
+ *
+ * Mounts the React app with Chakra UI (theme + color mode), React Query,
+ * and React Router. Renders {@link RouterProvider} with the app router;
+ * React Query Devtools are included for development.
+ */
+
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'

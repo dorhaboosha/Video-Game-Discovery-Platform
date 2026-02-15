@@ -1,3 +1,11 @@
+/**
+ * React Router configuration.
+ *
+ * Browser router with {@link Layout} as root (nav + outlet). Child routes:
+ * / = {@link HomePage}, /games/:slug = {@link GameDetailPage}. Unhandled
+ * errors render {@link ErrorPage}.
+ */
+
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";

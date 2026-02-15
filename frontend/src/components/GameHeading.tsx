@@ -1,9 +1,17 @@
+/**
+ * Game list heading component.
+ *
+ * Renders a dynamic h1 from the current filters: platform and genre from
+ * {@link useGameQueryStore}, resolved via {@link usePlatform} and {@link useGenre}.
+ * Format: "[Platform] [Genre] Games" (e.g. "PC Action Games").
+ */
 
 import { Heading } from '@chakra-ui/react'
-import usePlatform from '../hooks/usePlatfrom';
+import usePlatform from '../hooks/usePlatform';
 import useGenre from '../hooks/useGenre';
 import useGameQueryStore from '../store';
 
+/** Page heading built from selected platform and genre (e.g. "PC Action Games"). */
 const GameHeading = () => {
     
     const genreId = useGameQueryStore(s => s.gameQuery.genreId);

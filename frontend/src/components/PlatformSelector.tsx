@@ -1,10 +1,19 @@
+/**
+ * Platform filter dropdown component.
+ *
+ * Chakra Menu listing parent platforms from {@link usePlatforms}. Selection
+ * is synced with {@link useGameQueryStore} (setPlatformId); selected name
+ * resolved via {@link usePlatform}. Button shows "Platforms" when none selected.
+ * Returns null on error.
+ */
 
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import { BsChevronDown } from 'react-icons/bs'
 import usePlatforms from '../hooks/usePlatforms';
-import usePlatform from '../hooks/usePlatfrom';
+import usePlatform from '../hooks/usePlatform';
 import useGameQueryStore from '../store';
 
+/** Dropdown to pick a platform filter; updates the game query store. */
 const PlatformSelector = () => {
 
     const { data, error } = usePlatforms();

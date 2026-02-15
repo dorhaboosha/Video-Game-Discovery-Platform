@@ -1,3 +1,11 @@
+/**
+ * Game detail page.
+ *
+ * Full-page view for a single game: name, expandable description, attributes
+ * (platforms, metascore, genres, publishers), trailer video, and screenshots.
+ * Slug comes from route params; uses {@link useGame}. Spinner while loading;
+ * throws on error so the router can show {@link ErrorPage}.
+ */
 
 import { useParams } from 'react-router-dom'
 import useGame from '../hooks/useGame';
@@ -9,6 +17,7 @@ import GameAttributes from '../components/GameAttributes';
 import GameTrailer from '../components/GameTrailer';
 import GameScreenshots from '../components/GameScreenshots';
 
+/** Detail page for a game by slug: description, attributes, trailer, screenshots. */
 const GameDetailPage = () => {
 
   const { slug }  = useParams();
@@ -20,7 +29,7 @@ const GameDetailPage = () => {
   }
 
   if (error || !game) {
-    throw error;
+    throw error || new Error("Game not found");
   }
 
   return (
@@ -34,7 +43,7 @@ const GameDetailPage = () => {
         <GameTrailer gameId={game.id} />
         <GameScreenshots gameId={game.id} />
       </GridItem>
-    </ SimpleGrid>
+    </SimpleGrid>
   )
 }
 

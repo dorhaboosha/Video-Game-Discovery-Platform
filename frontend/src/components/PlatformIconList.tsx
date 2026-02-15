@@ -1,3 +1,10 @@
+/**
+ * Platform icon list component.
+ *
+ * Renders a horizontal row of platform icons (Windows, PlayStation, Xbox,
+ * Nintendo, Mac, Linux, Android, iOS, Web) keyed by platform slug from the
+ * {@link Platform} entity. Uses react-icons and Chakra Icon.
+ */
 
 import Platform from "../entities/Platform";
 import { HStack, Icon } from '@chakra-ui/react';
@@ -7,24 +14,25 @@ import { SiNintendo } from 'react-icons/si';
 import { BsGlobe } from 'react-icons/bs';
 import { IconType } from 'react-icons';
 
+const iconMap: { [key: string]: IconType } = {
+    pc: FaWindows,
+    playstation: FaPlaystation,
+    xbox: FaXbox,
+    nintendo: SiNintendo,
+    mac: FaApple,
+    linux: FaLinux,
+    android: FaAndroid,
+    ios: MdPhoneIphone,
+    web: BsGlobe
+};
+
+/** @param platforms - List of platforms to show icons for (slug used for mapping). */
 interface Props {
     platforms: Platform[];
 }
 
+/** Horizontal list of platform icons by slug (pc, playstation, xbox, etc.). */
 const PlatformIconList = ({platforms}: Props) => {
-
-    const iconMap: { [key: string] : IconType } = {
-        pc: FaWindows,
-        playstation: FaPlaystation,
-        xbox: FaXbox,
-        nintendo: SiNintendo,
-        mac: FaApple,
-        linux: FaLinux,
-        android: FaAndroid,
-        ios: MdPhoneIphone,
-        web: BsGlobe
-    };
-
   return (
     <HStack marginY={"10px"}>
         {platforms.map((platform) => (
